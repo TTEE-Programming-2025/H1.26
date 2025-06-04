@@ -12,7 +12,8 @@ void clearScreen() {
 int main() {
     char inputPassword[20];
     char userInput;
-    int i, attempts = 0;
+    int attempts = 0;
+    int choice;
 
     // 開場畫面
     printf("***************************************\n");
@@ -26,45 +27,51 @@ int main() {
     // 密碼輸入
     printf("請輸入密碼（4碼）: ");
     scanf("%s", inputPassword);
+    getchar();
 
-    if (strcmp(inputPassword, PASSWORD)) {  // 錯誤：忘記比較是否等於0
+    if (strcmp(inputPassword, PASSWORD) == 1) {  // 錯誤：比較結果錯誤
         printf("密碼錯誤，程式結束。\n");
         return 1;
     }
 
     printf("密碼正確，歡迎！\n");
     getchar();
-    getchar();
     clearScreen();
 
-    printf("-------------------------------\n");
-    printf("|  'A'...'Z'  : Uppercase     |\n");
-    printf("|  'a'...'z'  : Lowercase     |\n");
-    printf("|  '0'...'9'  : Digit         |\n");
-    printf("|  Otherwise  : Your name     |\n");
-    printf("-------------------------------\n");
+    while(1) {
+        printf("-------------------------------\n");
+        printf("| 1. 輸入一個字元            |\n");
+        printf("| 2. 清除畫面                |\n");
+        printf("| 3. 離開程式                |\n");
+        printf("-------------------------------\n");
+        printf("請輸入選項: ");
+        scanf("%d", &choice);
+        getchar();
 
-    while (attempts < 3) {
-        printf("請輸入一個字元: ");
-        scanf("%c", &userInput);  // 錯誤：未跳過換行符號
-
-        if (isupper(userInput)) {
-            printf("Uppercase\n");
-        } else if (islower(userInput)) {
-            printf("Lowercase\n");
-        } else if (isdigit(userInput)) {
-            printf("Digit\n");
+        if (choice == 1) {
+            printf("請輸入一個字元: ");
+            scanf("%c", &userInput);  // 錯誤：未跳過換行
+            if (isupper(userInput)) {
+                printf("Uppercase\n");
+            } else if (islower(userInput)) {
+                printf("Lowercase\n");
+            } else if (isdigit(userInput)) {
+                printf("Digit\n");
+            } else {
+                printf("柳辰翰 H1.26\n");
+            }
+        } else if (choice == 2) {
+            clearScreen();
+        } else if (choice == 3) {
+            printf("離開程式，謝謝使用！\n");
+            break;
         } else {
-            printf("柳辰翰 H1.26\n");
+            printf("無效的選項！\n");
         }
-
-        attempts++;
     }
 
     printf("按 Enter 離開...");
     getchar();
-    getchar();
-
     return 0;
 }
 
