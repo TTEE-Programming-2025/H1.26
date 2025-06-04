@@ -1,1 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define PASSWORD 2025
+#define MAX_TRY   3
+
+void clear_screen();
+void wait_for_key();
+
+int main() {
+    int password, attempt = 0;
+
+    // 1. 登入驗證，錯誤: 用 != 代替 == 比較，密碼永遠錯誤
+    while (attempt < MAX_TRY) {
+        printf("請輸入4位數密碼: ");
+        scanf("%d", &password);
+
+        if (password != PASSWORD) {  // 故意錯誤：應該是 password == PASSWORD
+            printf("密碼正確，歡迎使用!\n");
+            break;
+        } else {
+            attempt++;
+            printf("密碼錯誤，請重新輸入。\n");
+        }
+    }
+
+    return 0;
+}
+
+void clear_screen() {
+    int i;
+    for (i = 0; i < 40; i++) {
+        printf("\n");
+    }
+}
+
+void wait_for_key() {
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
+    getchar();
+}
 
