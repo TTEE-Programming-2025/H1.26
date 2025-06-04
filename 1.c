@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>   /* for system() */
-#include <string.h>   /* for strcmp() */
+#include <string.h>   
 #include <ctype.h>    /* for isupper, islower, isdigit */
 
 #define PASSWORD "2024"  /* 密碼 */
@@ -39,49 +39,7 @@ int main() {
     for (i = 0; i < 5; i++) {
         printf("**                                   **\n");
     }
-    printf("***************************************\n");
-    printf("按 Enter 鍵繼續內容...");
-    getchar(); /* 等待輸入（按一次 Enter）*/
-    clearScreen();
-
-    /* 密碼輸入 */
-    printf("輸入4位密碼: ");
-    scanf("%19s", inputPassword);
-    if (strcmp(inputPassword, PASSWORD) != 0) {
-        printf("(錯誤的密碼，程式將終止)\n");
-        printf("%c", '\a'); /* 鈴聲 */
-        return 0;
-    }
-    printf("(密碼正確，歡迎!!!)\n");
-    getchar(); /* 清除上一個輸入的 Enter */
-    getchar(); /* 再次等待按鍵 */
-    clearScreen();
-
-    /* 顯示主選單 */
-    printf("-------------------------------\n");
-    printf("|  'A'...'Z'  : Uppercase     |\n");
-    printf("|  'a'...'z'  : Lowercase     |\n");
-    printf("|  '0'...'9'  : Digit         |\n");
-    printf("|  Otherwise  : Your name     |\n");
-    printf("-------------------------------\n");
-
-    /* 接收使用者輸入 */
-    printf("輸入一個字元: ");
-    scanf(" %c", &userInput);  /* 空格可跳過前面殘留的換行 */
-
-    if (isupper(userInput)) {
-        printf("Uppercase\n");
-    } else if (islower(userInput)) {
-        printf("Lowercase\n");
-    } else if (isdigit(userInput)) {
-        printf("Digit\n");
-    } else {
-        printf("H1.26 柳辰翰\n");
-    }
-
-    printf("按 Enter 離開...");
-    getchar(); /* 清除輸入緩衝區 */
-    getchar();
+  
     return 0;
 }
 //這次的作業讓我理解: 
