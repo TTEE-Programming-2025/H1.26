@@ -51,4 +51,18 @@ printf("|  'a'...'z'  : Lowercase     |\n");
 printf("|  '0'...'9'  : Digit         |\n");
 printf("|  Otherwise  : Your name     |\n");
 printf("-------------------------------\n");
+char userInput;
+
+printf("輸入一個字元: ");
+scanf(" %c", &userInput);  // 注意前面空格避免殘留輸入
+
+if (isupper(userInput)) {
+    printf("Uppercase\n");
+} else if (islower(userInput)) {
+    printf("Lowercase\n");
+} else if (isdigit(userInput)) {
+    printf("Digit\n");
+} else {
+    printf("H1.26 柳辰翰\n");
+}
 
