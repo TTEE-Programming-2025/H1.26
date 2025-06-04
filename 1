@@ -3,16 +3,16 @@
 #include <string.h>
 #include <ctype.h>
 
-#define PASSWORD "2024"  // 密碼定義
+#define PASSWORD "2024"
 
 void clearScreen() {
-    system("cls");  // 適用於 Windows
+    system("cls");
 }
 
 int main() {
     char inputPassword[20];
     char userInput;
-    int i;
+    int i, attempts = 0;
 
     // 開場畫面
     printf("***************************************\n");
@@ -20,24 +20,23 @@ int main() {
     printf("**         By 柳辰翰 (H1.26)          **\n");
     printf("***************************************\n");
     printf("請按 Enter 鍵繼續...");
-    getchar();  // 等待 Enter
+    getchar();
     clearScreen();
 
     // 密碼輸入
     printf("請輸入密碼（4碼）: ");
-    scanf("%19s", inputPassword);
+    scanf("%s", inputPassword);
 
-    if (strcmp(inputPassword, PASSWORD) != 0) {
-        printf("密碼錯誤！程式結束。\n");
+    if (strcmp(inputPassword, PASSWORD)) {  // 錯誤：忘記比較是否等於0
+        printf("密碼錯誤，程式結束。\n");
         return 1;
     }
 
     printf("密碼正確，歡迎！\n");
-    getchar(); // 吃掉前一個 Enter
-    getchar(); // 再按一次 Enter 繼續
+    getchar();
+    getchar();
     clearScreen();
 
-    // 主選單與字元判斷
     printf("-------------------------------\n");
     printf("|  'A'...'Z'  : Uppercase     |\n");
     printf("|  'a'...'z'  : Lowercase     |\n");
@@ -45,21 +44,27 @@ int main() {
     printf("|  Otherwise  : Your name     |\n");
     printf("-------------------------------\n");
 
-    printf("請輸入一個字元: ");
-    scanf(" %c", &userInput);  // 空格忽略前面換行
+    while (attempts < 3) {
+        printf("請輸入一個字元: ");
+        scanf("%c", &userInput);  // 錯誤：未跳過換行符號
 
-    if (isupper(userInput)) {
-        printf("Uppercase\n");
-    } else if (islower(userInput)) {
-        printf("Lowercase\n");
-    } else if (isdigit(userInput)) {
-        printf("Digit\n");
-    } else {
-        printf("柳辰翰 H1.26\n");
+        if (isupper(userInput)) {
+            printf("Uppercase\n");
+        } else if (islower(userInput)) {
+            printf("Lowercase\n");
+        } else if (isdigit(userInput)) {
+            printf("Digit\n");
+        } else {
+            printf("柳辰翰 H1.26\n");
+        }
+
+        attempts++;
     }
 
     printf("按 Enter 離開...");
-    getchar(); // 清除緩衝
-    getchar(); // 等待 Enter
+    getchar();
+    getchar();
+
     return 0;
 }
+
