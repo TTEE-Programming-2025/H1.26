@@ -65,18 +65,7 @@ int main() {
                 printf("請輸入乘法表大小 (1~9): ");
                 if (scanf("%d", &n) == 1) {
                     if (n >= 1 && n <= 9) {
-                        // 故意錯誤：乘法表少印了一列，for迴圈條件錯誤
-                        int i, j;
-                        clear_screen();
-                        printf("%d x %d 乘法表\n\n", n, n);
-                        for (i = 1; i < n; i++) { // 應該是 i <= n
-                            for (j = 1; j <= n; j++) {
-                                printf("%4d", i * j);
-                            }
-                            printf("\n");
-                        }
-                        printf("\n按 Enter 鍵返回主選單...\n");
-                        wait_for_key();
+                        print_multiplication_table(n);
                     } else {
                         printf("輸入錯誤，必須是 1~9 之間的整數。\n");
                         wait_for_key();
@@ -107,9 +96,25 @@ void print_letter_triangle(char ch) {
     clear_screen();
     printf("直角三角形 (%c)\n\n", ch);
 
-    for (i = ch; i >= 'a'; i--) {  // 修正為遞減
+    for (i = ch; i >= 'a'; i--) {
         for (j = i; j <= ch; j++) {
             printf("%c", j);
+        }
+        printf("\n");
+    }
+
+    printf("\n按 Enter 鍵返回主選單...\n");
+    wait_for_key();
+}
+
+void print_multiplication_table(int n) {
+    int i, j;
+    clear_screen();
+    printf("%d x %d 乘法表\n\n", n, n);
+
+    for (i = 1; i <= n; i++) {  // 修正：印完整乘法表
+        for (j = 1; j <= n; j++) {
+            printf("%4d", i * j);
         }
         printf("\n");
     }
