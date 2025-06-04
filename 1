@@ -1,36 +1,65 @@
-
 #include <stdio.h>
-#include <stdlib.h>  // for system()
-#include <string.h>  // for strcmp()
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
-#define PASSWORD 2024  // 錯誤：應為字串而非整數
+#define PASSWORD "2024"  // 密碼定義
 
 void clearScreen() {
-    system("clear");  // TODO 修正：Windows 上應使用 "cls"
+    system("cls");  // 適用於 Windows
 }
 
 int main() {
     char inputPassword[20];
+    char userInput;
     int i;
 
+    // 開場畫面
     printf("***************************************\n");
     printf("**           Welcome 歡迎!           **\n");
     printf("**         By 柳辰翰 (H1.26)          **\n");
     printf("***************************************\n");
     printf("請按 Enter 鍵繼續...");
-    // 忘記等待輸入的語句
-
+    getchar();  // 等待 Enter
     clearScreen();
 
+    // 密碼輸入
     printf("請輸入密碼（4碼）: ");
-    scanf("%s", inputPassword);
+    scanf("%19s", inputPassword);
 
-    if (strcmp(inputPassword, PASSWORD)) {  // 錯誤：PASSWORD 應是字串
+    if (strcmp(inputPassword, PASSWORD) != 0) {
         printf("密碼錯誤！程式結束。\n");
         return 1;
     }
 
     printf("密碼正確，歡迎！\n");
+    getchar(); // 吃掉前一個 Enter
+    getchar(); // 再按一次 Enter 繼續
+    clearScreen();
 
+    // 主選單與字元判斷
+    printf("-------------------------------\n");
+    printf("|  'A'...'Z'  : Uppercase     |\n");
+    printf("|  'a'...'z'  : Lowercase     |\n");
+    printf("|  '0'...'9'  : Digit         |\n");
+    printf("|  Otherwise  : Your name     |\n");
+    printf("-------------------------------\n");
+
+    printf("請輸入一個字元: ");
+    scanf(" %c", &userInput);  // 空格忽略前面換行
+
+    if (isupper(userInput)) {
+        printf("Uppercase\n");
+    } else if (islower(userInput)) {
+        printf("Lowercase\n");
+    } else if (isdigit(userInput)) {
+        printf("Digit\n");
+    } else {
+        printf("柳辰翰 H1.26\n");
+    }
+
+    printf("按 Enter 離開...");
+    getchar(); // 清除緩衝
+    getchar(); // 等待 Enter
     return 0;
 }
