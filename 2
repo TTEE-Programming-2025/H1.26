@@ -6,24 +6,83 @@
 
 void clear_screen();
 void wait_for_key();
+void print_letter_triangle(char ch);
 
 int main() {
     int password, attempt = 0;
+    char choice;
+    int running = 1;
 
-    // 1. 登入驗證，錯誤: 用 != 代替 == 比較，密碼永遠錯誤
+    // 登入驗證
     while (attempt < MAX_TRY) {
         printf("請輸入4位數密碼: ");
         scanf("%d", &password);
 
-        if (password != PASSWORD) {  // 故意錯誤：應該是 password == PASSWORD
+        if (password == PASSWORD) {
             printf("密碼正確，歡迎使用!\n");
             break;
         } else {
             attempt++;
-            printf("密碼錯誤，請重新輸入。\n");
+            if (attempt == MAX_TRY) {
+                printf("錯誤三次，強制結束。\n");
+                return 1;
+            } else {
+                printf("密碼錯誤，請重新輸入。\n");
+            }
         }
     }
 
+    while (running) {
+        clear_screen();
+        printf("======== 主選單 ========\n");
+        printf("a. 直角三角形\n");
+        printf("b. 選項B\n");
+        printf("c. 結束\n");
+        printf("========================\n");
+        printf("請選擇 (a/b/c): ");
+
+        while ((choice = getchar()) == '\n');
+
+        switch(choice) {
+            case 'a':
+            case 'A': {
+                char ch;
+                printf("請輸入一個字元 (a~n): ");
+                ch = getchar();
+
+                if (ch >= 'a' && ch <= 'n') {
+                    // 故意錯誤：for 迴圈範圍寫錯，無法印出完整三角形
+                    int i, j;
+                    clear_screen();
+                    printf("直角三角形 (%c)\n\n", ch);
+                    for (i = 'a'; i <= ch; i++) {  // 錯誤，應該是 i 從 ch 遞減到 'a'
+                        for (j = i; j <= ch; j++) {
+                            printf("%c", j);
+                        }
+                        printf("\n");
+                    }
+                } else {
+                    printf("輸入錯誤，必須是 a~n 之間的字元。\n");
+                }
+                wait_for_key();
+                break;
+            }
+            case 'b':
+            case 'B':
+                printf("選項B尚未實作。\n");
+                wait_for_key();
+                break;
+            case 'c':
+            case 'C':
+                running = 0;
+                break;
+            default:
+                printf("選項錯誤，請重新選擇。\n");
+                wait_for_key();
+        }
+    }
+
+    printf("程式結束\n");
     return 0;
 }
 
@@ -39,4 +98,3 @@ void wait_for_key() {
     while ((ch = getchar()) != '\n' && ch != EOF);
     getchar();
 }
-
