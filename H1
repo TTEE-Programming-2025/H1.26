@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,4 +37,21 @@ int main() {
     printf("請按 Enter 繼續...");
     getchar();
     clearScreen();
+
+    // 主選單迴圈
+    while (1) {
+        printf("-------------------------------\n");
+        printf("| 1. 輸入一個字元            |\n");
+        printf("| 2. 清除畫面                |\n");
+        printf("| 3. 離開程式                |\n");
+        printf("-------------------------------\n");
+        printf("請輸入選項: ");
+
+        if (scanf("%d", &choice) != 1) {
+            printf("輸入錯誤，請輸入數字。\n");
+            while (getchar() != '\n'); // 清除緩衝區
+            continue;
+        }
+        getchar();
+    }
 }
