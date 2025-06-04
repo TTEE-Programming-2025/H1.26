@@ -30,4 +30,19 @@ printf("***************************************\n");
 printf("按 Enter 鍵繼續內容...");
 getchar();
 clearScreen();
+#define PASSWORD "2024"  /* 密碼 */
+
+char inputPassword[20];
+
+printf("輸入4位密碼: ");
+scanf("%19s", inputPassword);
+if (strcmp(inputPassword, PASSWORD) != 0) {
+    printf("(錯誤的密碼，程式將終止)\n");
+    printf("%c", '\a'); /* 鈴聲 */
+    return 0;
+}
+printf("(密碼正確，歡迎!!!)\n");
+getchar();  /* 清除 scanf 殘留換行 */
+getchar();  /* 再次等待按鍵 */
+clearScreen();
 
