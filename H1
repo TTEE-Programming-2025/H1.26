@@ -77,4 +77,8 @@ int main() {
             printf("無效的選項，請重新輸入。\n");
         }
     }
+
+    printf("按 Enter 離開...");
+    getchar();
+    return 0;
 }
