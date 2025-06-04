@@ -6,13 +6,12 @@
 #define PASSWORD "2024"
 
 void clearScreen() {
-    system("cls");
+    system("cls"); // Windows 清螢幕
 }
 
 int main() {
     char inputPassword[20];
     char userInput;
-    int attempts = 0;
     int choice;
 
     // 開場畫面
@@ -24,33 +23,42 @@ int main() {
     getchar();
     clearScreen();
 
-    // 密碼輸入
+    // 輸入密碼
     printf("請輸入密碼（4碼）: ");
-    scanf("%s", inputPassword);
-    getchar();
+    scanf("%19s", inputPassword);
+    getchar(); // 吃掉換行符
 
-    if (strcmp(inputPassword, PASSWORD) == 1) {  // 錯誤：比較結果錯誤
+    if (strcmp(inputPassword, PASSWORD) != 0) {
         printf("密碼錯誤，程式結束。\n");
         return 1;
     }
 
     printf("密碼正確，歡迎！\n");
+    printf("請按 Enter 繼續...");
     getchar();
     clearScreen();
 
-    while(1) {
+    // 主選單迴圈
+    while (1) {
         printf("-------------------------------\n");
         printf("| 1. 輸入一個字元            |\n");
         printf("| 2. 清除畫面                |\n");
         printf("| 3. 離開程式                |\n");
         printf("-------------------------------\n");
         printf("請輸入選項: ");
-        scanf("%d", &choice);
-        getchar();
+
+        if (scanf("%d", &choice) != 1) {
+            printf("輸入錯誤，請輸入數字。\n");
+            while (getchar() != '\n'); // 清除輸入緩衝區
+            continue;
+        }
+        getchar(); // 吃掉換行符
 
         if (choice == 1) {
             printf("請輸入一個字元: ");
-            scanf("%c", &userInput);  // 錯誤：未跳過換行
+            scanf(" %c", &userInput); // 空白跳過換行符
+            getchar();
+
             if (isupper(userInput)) {
                 printf("Uppercase\n");
             } else if (islower(userInput)) {
@@ -66,7 +74,7 @@ int main() {
             printf("離開程式，謝謝使用！\n");
             break;
         } else {
-            printf("無效的選項！\n");
+            printf("無效的選項，請重新輸入。\n");
         }
     }
 
