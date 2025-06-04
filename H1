@@ -1,1 +1,41 @@
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define PASSWORD "2024"
+
+void clearScreen() {
+    system("cls"); // Windows 清螢幕
+}
+
+int main() {
+    char inputPassword[20];
+    char userInput;
+    int choice;
+
+    // 開場畫面
+    printf("***************************************\n");
+    printf("**           Welcome 歡迎!           **\n");
+    printf("**         By 柳辰翰 (H1.26)          **\n");
+    printf("***************************************\n");
+    printf("請按 Enter 鍵繼續...");
+    getchar();
+    clearScreen();
+
+    // 輸入密碼
+    printf("請輸入密碼（4碼）: ");
+    scanf("%19s", inputPassword);
+    getchar();
+
+    if (strcmp(inputPassword, PASSWORD) != 0) {
+        printf("密碼錯誤，程式結束。\n");
+        return 1;
+    }
+
+    printf("密碼正確，歡迎！\n");
+    printf("請按 Enter 繼續...");
+    getchar();
+    clearScreen();
+}
