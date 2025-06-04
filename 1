@@ -1,1 +1,36 @@
 
+#include <stdio.h>
+#include <stdlib.h>  // for system()
+#include <string.h>  // for strcmp()
+
+#define PASSWORD 2024  // 錯誤：應為字串而非整數
+
+void clearScreen() {
+    system("clear");  // TODO 修正：Windows 上應使用 "cls"
+}
+
+int main() {
+    char inputPassword[20];
+    int i;
+
+    printf("***************************************\n");
+    printf("**           Welcome 歡迎!           **\n");
+    printf("**         By 柳辰翰 (H1.26)          **\n");
+    printf("***************************************\n");
+    printf("請按 Enter 鍵繼續...");
+    // 忘記等待輸入的語句
+
+    clearScreen();
+
+    printf("請輸入密碼（4碼）: ");
+    scanf("%s", inputPassword);
+
+    if (strcmp(inputPassword, PASSWORD)) {  // 錯誤：PASSWORD 應是字串
+        printf("密碼錯誤！程式結束。\n");
+        return 1;
+    }
+
+    printf("密碼正確，歡迎！\n");
+
+    return 0;
+}
