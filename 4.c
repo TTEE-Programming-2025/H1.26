@@ -1,0 +1,168 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define MAX 10
+#define SUBJECTS 6
+
+struct Student {
+    char name[50];
+    int id;
+    int grades[SUBJECTS];
+    float avg;
+};
+
+struct Student students[MAX];
+int student_count = 0;
+
+void showMenu() {
+    printf("\n----------[Grade System]----------\n");
+    printf("a. Enter student grades\n");
+    printf("b. Display student grades\n");
+    printf("c. Search for student grades\n");
+    printf("d. Grade ranking\n");
+    printf("e. Exit system\n");
+    printf("----------------------------------\n");
+    printf("Enter your choice: ");
+}
+
+float calculateAverage(int grades[]) {
+    int sum = 0;
+    int i;
+    for (i = 0; i < SUBJECTS; i++) {
+        sum += grades[i];
+    }
+    return sum / (float)SUBJECTS;
+}
+
+bool login() {
+    char password[10];
+    int tries = 0;
+    while (tries < 3) {
+        printf("請輸入4位數密碼：");
+        scanf("%s", password);
+        if (strcmp(password, "2025") == 0) {
+            printf("歡迎使用成績系統！\n");
+            return true;
+        } else {
+            printf("密碼錯誤！\n");
+            tries++;
+        }
+    }
+    printf("密碼錯誤超過3次，系統結束。\n");
+    return false;
+}
+
+void enterGrades() {
+    int i, j;
+    printf("請輸入學生人數 (5~10)：");
+    scanf("%d", &student_count);
+
+    if (student_count < 5 || student_count > 10) {
+        printf("人數錯誤！\n");
+        student_count = 0;
+        return;
+    }
+
+    for (i = 0; i < student_count; i++) {
+        printf("\n學生 %d 姓名: ", i + 1);
+        scanf("%s", students[i].name);
+        students[i].id = i + 1;
+        printf("請輸入6科成績：");
+
+        for (j = 0; j < SUBJECTS; j++) {
+            scanf("%d", &students[i].grades[j]);
+            if (students[i].grades[j] < 0 || students[i].grades[j] > 100) {
+                printf("成績錯誤，請重新輸入\n");
+                i--;
+                break;
+            }
+        }
+        if (j == SUBJECTS) {
+            students[i].avg = calculateAverage(students[i].grades);
+        }
+    }
+    printf("學生資料輸入完成！\n");
+}
+
+void displayGrades() {
+    int i;
+    printf("\n%-10s%-5s%-10s\n", "姓名", "ID", "平均成績");
+    for (i = 0; i < student_count; i++) {
+        printf("%-10s%-5d%.1f\n", students[i].name, students[i].id, students[i].avg);
+    }
+    printf("請按 Enter 繼續...");
+    getchar();
+    getchar();
+}
+
+void searchStudent() {
+    char search_name[50];
+    int i;
+    printf("請輸入要查詢的學生姓名：");
+    scanf("%s", search_name);
+
+    for (i = 0; i < student_count; i++) {
+        if (strcmp(students[i].name, search_name) == 0) {
+            printf("\n姓名: %s\n學號: %d\n平均成績: %.1f\n", students[i].name, students[i].id, students[i].avg);
+            printf("請按 Enter 繼續...");
+            getchar(); getchar();
+            return;
+        }
+    }
+    printf("查無此學生資料！\n");
+    printf("請按 Enter 繼續...");
+    getchar(); getchar();
+}
+
+void gradeRanking() {
+    int i, j;
+    struct Student temp;
+
+    for (i = 0; i < student_count - 1; i++) {
+        for (j = i + 1; j < student_count; j++) {
+            if (students[i].avg < students[j].avg) {
+                temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+
+    printf("\n%-10s%-5s%-10s\n", "姓名", "ID", "平均成績");
+    for (i = 0; i < student_count; i++) {
+        printf("%-10s%-5d%.1f\n", students[i].name, students[i].id, students[i].avg);
+    }
+    printf("請按 Enter 繼續...");
+    getchar(); getchar();
+}
+
+bool exitSystem() {
+    char confirm;
+    printf("確定離開？(y/n): ");
+    getchar();
+    scanf("%c", &confirm);
+    return (confirm == 'y' || confirm == 'Y');
+}
+
+int main() {
+    if (!login()) return 0;
+
+    char choice;
+    while (1) {
+        showMenu();
+        scanf(" %c", &choice);
+        switch (choice) {
+            case 'a': enterGrades(); break;
+            case 'b': displayGrades(); break;
+            case 'c': searchStudent(); break;
+            case 'd': gradeRanking(); break;
+            case 'e': if (exitSystem()) return 0; break;
+            default: printf("無效選項！請重新選擇。\n"); break;
+        }
+    }
+
+    return 0;
+}
+//透過這次簡易成績系統的實作，我更加熟悉
