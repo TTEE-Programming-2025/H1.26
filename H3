@@ -20,7 +20,7 @@ void initSeats() {
 void displaySeats() {
     int i, j;
     printf(" \\123456789\n");
-    for (i = 0; i < ROWS; i++) {
+    for (i = ROWS - 1; i >= 0; i--) {
         printf("%d", i + 1);
         for (j = 0; j < COLS; j++) {
             printf("%c", seats[i][j]);
@@ -29,24 +29,30 @@ void displaySeats() {
     }
 }
 
-int login() {
-    char input[10];
-    int attempts = 0;
-    while (attempts < 3) {
-        printf("Enter password: ");
-        scanf("%s", input);
-        if (strcmp(input, "2025") == 0) {
-            return 1;
+void autoArrange(int count) {
+    int i, j, k;
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS - count; j++) {
+            int ok = 1;
+            for (k = 0; k < count; k++) {
+                if (seats[i][j + k] != '-') {
+                    ok = 0;
+                    break;
+                }
+            }
+            if (ok) {
+                for (k = 0; k < count; k++) {
+                    seats[i][j + k] = '@';
+                }
+                displaySeats();
+                return;
+            }
         }
-        attempts++;
     }
-    return 0;
 }
 
 int main() {
-    if (login()) {
-        initSeats();
-        displaySeats();
-    }
+    initSeats();
+    autoArrange(3);
     return 0;
 }
