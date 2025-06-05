@@ -1,1 +1,41 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+// 顯示主選單
+void showMenu() {
+    printf("\na. 輸入成績\nb. 顯示成績\nc. 查詢成績\nd. 排名\ne. 離開\n");
+    printf("請輸入選項：");
+}
+
+// 登入系統
+bool login() {
+    char password[10];
+    int tries = 0;
+    while (tries < 3) {
+        printf("請輸入密碼：");
+        scanf("%s", password);
+        if (strcmp(password, "2025") == 0) {
+            printf("登入成功！\n");
+            return true;
+        } else {
+            printf("密碼錯誤！\n");
+        }
+        tries++;
+    }
+    printf("登入失敗，系統結束。\n");
+    return false;
+}
+
+int main() {
+    char choice;
+    if (!login()) return 0;
+
+    while (1) {
+        showMenu();
+        scanf("%c", &choice);  
+    }
+
+    return 0;
+}
 
