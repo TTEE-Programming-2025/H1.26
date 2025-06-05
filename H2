@@ -4,15 +4,19 @@
 #define PASSWORD 2025
 #define MAX_TRY   3
 
+void clear_screen();
+
 int main() {
     int password, attempt = 0;
+    char choice;
+    int running = 1;
 
     // 登入驗證
-    while (attempt <= MAX_TRY) {
+    while (attempt < MAX_TRY) {
         printf("請輸入4位數密碼: ");
-        scanf("%d", password);
+        scanf("%d", &password);
 
-        if (password = PASSWORD) {
+        if (password == PASSWORD) {
             printf("密碼正確，歡迎使用!\n");
             break;
         } else {
@@ -26,6 +30,40 @@ int main() {
         }
     }
 
+    while (running) {
+        clear_screen();
+        printf("======== 主選單 ========\n");
+        printf("a. 直角三角形\n");
+        printf("b. 顯示乘法表\n");
+        printf("c. 結束\n");
+        printf("========================\n");
+        printf("請選擇 (a/b/c): ");
+
+        choice = getchar();
+
+        switch (choice) {
+            case 'a':
+                printf("選擇直角三角形\n");
+                break;
+            case 'b':
+                printf("選擇乘法表\n");
+                break;
+            case 'c':
+                printf("結束程式\n");
+                running = 0;
+                break;
+            default:
+                printf("選項錯誤，請重新選擇。\n");
+        }
+    }
+
     return 0;
+}
+
+void clear_screen() {
+    int i;
+    for (i = 0; i < 40; i++) {
+        printf("\n");
+    }
 }
 
