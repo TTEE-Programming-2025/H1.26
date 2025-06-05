@@ -1,1 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define PASSWORD "2025"
+#define MAX_ATTEMPTS 3
+
+int login() {
+    char input[10];
+    int attempts = 0;
+    while (attempts < MAX_ATTEMPTS) {
+        printf("Enter 4-digit password: ");
+        scanf("%s", input);
+        if (strcmp(input, PASSWORD) == 0) {
+            printf("Welcome!\n");
+            return 1;
+        } else {
+            printf("Incorrect password. Try again.\n");
+            attempts++;
+        }
+    }
+    printf("Too many failed attempts. System locked.\n");
+    return 0;
+}
+
+int main() {
+    printf("******** WELCOME TO THE SYSTEM ********\n");
+    printf("*       Personal Booking Program      *\n");
+    printf("*         Designed by [h1.26]         *\n");
+    if (login()) {
+        printf("Login success\n");
+    }
+    return 0;
+}
 
