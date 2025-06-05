@@ -8,35 +8,20 @@
 struct Student {
     char name[50];
     int grades[SUBJECTS];
+    float avg;
 };
 
 struct Student students[MAX];
 int student_count = 0;
 
-void showMenu() {
-    printf("\na. 輸入成績\nb. 顯示成績\nc. 查詢成績\nd. 排名\ne. 離開\n");
-    printf("請輸入選項：");
-}
-
-bool login() {
-    char password[10];
-    int tries = 0;
-    while (tries < 3) {
-        printf("請輸入密碼：");
-        scanf("%s", password);
-        if (strcmp(password, "2025") == 0) {
-            printf("登入成功！\n");
-            return true;
-        } else {
-            printf("密碼錯誤！\n");
-        }
-        tries++;
+float calculateAverage(int grades[]) {
+    int sum = 0;
+    for (int i = 0; i < SUBJECTS; i++) {
+        sum += grades[i];
     }
-    printf("登入失敗，系統結束。\n");
-    return false;
+    return sum / (float)SUBJECTS;
 }
 
-// 輸入學生成績
 void enterGrades() {
     printf("請輸入學生人數 (1~10)：");
     scanf("%d", &student_count);
@@ -47,21 +32,49 @@ void enterGrades() {
         printf("請輸入6科成績：");
         for (int j = 0; j < SUBJECTS; j++) {
             scanf("%d", &students[i].grades[j]);
+            if (students[i].grades[j] < 0 || students[i].grades[j] > 100) {
+                printf("輸入錯誤！請重新輸入此學生全部資料。\n");
+                i--; break;
+            }
+        }
+        students[i].avg = calculateAverage(students[i].grades);
+    }
+}
+
+// 顯示學生平均成績
+void displayGrades() {
+    printf("\n%-10s%-10s\n", "姓名", "平均成績");
+    for (int i = 0; i < student_count; i++) {
+        printf("%-10s%-10.1f\n", students[i].name, students[i].avg);
+    }
+}
+
+// 查詢學生
+void searchStudent() {
+    char target[50];
+    printf("請輸入要查詢的學生名字：");
+    scanf("%s", target);
+    for (int i = 0; i < student_count; i++) {
+        if (students[i].name == target) {  
+            printf("找到：%s, 平均 %.1f\n", students[i].name, students[i].avg);
+            return;
         }
     }
+    printf("查無此人。\n");
 }
 
 int main() {
     char choice;
-    if (!login()) return 0;
-
     while (1) {
-        showMenu();
-        scanf(" %c", &choice);  
+        printf("\na. 輸入成績\nb. 顯示成績\nc. 查詢成績\n");
+        scanf(" %c", &choice);
         switch (choice) {
             case 'a': enterGrades(); break;
+            case 'b': displayGrades(); break;
+            case 'c': searchStudent(); break;
         }
     }
 
     return 0;
 }
+
