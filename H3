@@ -1,35 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
-#define PASSWORD "2025"
-#define MAX_ATTEMPTS 3
+#define ROWS 9
+#define COLS 9
+
+char seats[ROWS][COLS];
+
+void initSeats() {
+    int i, j;
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            seats[i][j] = '-';
+        }
+    }
+}
+
+void displaySeats() {
+    int i, j;
+    printf(" \\123456789\n");
+    for (i = 0; i < ROWS; i++) {
+        printf("%d", i + 1);
+        for (j = 0; j < COLS; j++) {
+            printf("%c", seats[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 int login() {
     char input[10];
     int attempts = 0;
-    while (attempts < MAX_ATTEMPTS) {
-        printf("Enter 4-digit password: ");
+    while (attempts < 3) {
+        printf("Enter password: ");
         scanf("%s", input);
-        if (strcmp(input, PASSWORD) == 0) {
-            printf("Welcome!\n");
+        if (strcmp(input, "2025") == 0) {
             return 1;
-        } else {
-            printf("Incorrect password. Try again.\n");
-            attempts++;
         }
+        attempts++;
     }
-    printf("Too many failed attempts. System locked.\n");
     return 0;
 }
 
 int main() {
-    printf("******** WELCOME TO THE SYSTEM ********\n");
-    printf("*       Personal Booking Program      *\n");
-    printf("*         Designed by [h1.26]         *\n");
     if (login()) {
-        printf("Login success\n");
+        initSeats();
+        displaySeats();
     }
     return 0;
 }
-
