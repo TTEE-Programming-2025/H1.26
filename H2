@@ -1,1 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define PASSWORD 2025
+#define MAX_TRY   3
+
+int main() {
+    int password, attempt = 0;
+
+    // 登入驗證
+    while (attempt <= MAX_TRY) {
+        printf("請輸入4位數密碼: ");
+        scanf("%d", password);
+
+        if (password = PASSWORD) {
+            printf("密碼正確，歡迎使用!\n");
+            break;
+        } else {
+            attempt++;
+            if (attempt == MAX_TRY) {
+                printf("錯誤三次，強制結束。\n");
+                return 1;
+            } else {
+                printf("密碼錯誤，請重新輸入。\n");
+            }
+        }
+    }
+
+    return 0;
+}
 
