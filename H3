@@ -29,30 +29,20 @@ void displaySeats() {
     }
 }
 
-void autoArrange(int count) {
-    int i, j, k;
-    for (i = 0; i < ROWS; i++) {
-        for (j = 0; j < COLS - count; j++) {
-            int ok = 1;
-            for (k = 0; k < count; k++) {
-                if (seats[i][j + k] != '-') {
-                    ok = 0;
-                    break;
-                }
-            }
-            if (ok) {
-                for (k = 0; k < count; k++) {
-                    seats[i][j + k] = '@';
-                }
-                displaySeats();
-                return;
-            }
+void manualChoose(int n) {
+    int i, r, c;
+    for (i = 0; i < n; i++) {
+        printf("Seat (row-col): ");
+        scanf("%d-%d", &r, &c);
+        if (seats[r][c] == '-') {
+            seats[r][c] = '*';
         }
     }
+    displaySeats();
 }
 
 int main() {
     initSeats();
-    autoArrange(3);
+    manualChoose(2);
     return 0;
 }
