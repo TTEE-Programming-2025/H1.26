@@ -5,6 +5,7 @@
 #define MAX_TRY   3
 
 void clear_screen();
+void print_letter_triangle(char ch);
 
 int main() {
     int password, attempt = 0;
@@ -39,12 +40,21 @@ int main() {
         printf("========================\n");
         printf("請選擇 (a/b/c): ");
 
-        choice = getchar();
+        while ((choice = getchar()) == '\n');
 
         switch (choice) {
             case 'a':
-                printf("選擇直角三角形\n");
+            case 'A': {
+                char triangleChar;
+                printf("請輸入一個字元 (a~n): ");
+                while ((triangleChar = getchar()) == '\n');
+                if (triangleChar < 'a' || triangleChar > 'n') {
+                    printf("輸入錯誤，必須是 a~n 之間的字元。\n");
+                    break;
+                }
+                print_letter_triangle(triangleChar);
                 break;
+            }
             case 'b':
                 printf("選擇乘法表\n");
                 break;
@@ -65,5 +75,21 @@ void clear_screen() {
     for (i = 0; i < 40; i++) {
         printf("\n");
     }
+}
+
+void print_letter_triangle(char ch) {
+    int i, j;
+    clear_screen();
+    printf("直角三角形 (%c)\n\n", ch);
+
+    for (i = 'a'; i <= ch; i++) {
+        for (j = 'a'; j <= i; j++) {
+            printf("%c", j);
+        }
+        printf("\n");
+    }
+
+    printf("\n按 Enter 鍵返回主選單...\n");
+    getchar();
 }
 
