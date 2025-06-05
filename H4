@@ -2,13 +2,22 @@
 #include <string.h>
 #include <stdbool.h>
 
-// 顯示主選單
+#define SUBJECTS 6
+#define MAX 10
+
+struct Student {
+    char name[50];
+    int grades[SUBJECTS];
+};
+
+struct Student students[MAX];
+int student_count = 0;
+
 void showMenu() {
     printf("\na. 輸入成績\nb. 顯示成績\nc. 查詢成績\nd. 排名\ne. 離開\n");
     printf("請輸入選項：");
 }
 
-// 登入系統
 bool login() {
     char password[10];
     int tries = 0;
@@ -27,15 +36,32 @@ bool login() {
     return false;
 }
 
+// 輸入學生成績
+void enterGrades() {
+    printf("請輸入學生人數 (1~10)：");
+    scanf("%d", &student_count);
+
+    for (int i = 0; i < student_count; i++) {
+        printf("姓名：");
+        scanf("%s", students[i].name);
+        printf("請輸入6科成績：");
+        for (int j = 0; j < SUBJECTS; j++) {
+            scanf("%d", &students[i].grades[j]);
+        }
+    }
+}
+
 int main() {
     char choice;
     if (!login()) return 0;
 
     while (1) {
         showMenu();
-        scanf("%c", &choice);  
+        scanf(" %c", &choice);  
+        switch (choice) {
+            case 'a': enterGrades(); break;
+        }
     }
 
     return 0;
 }
-
